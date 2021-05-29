@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html {
+  --color-background: #2ea043;
+  --color-font: #fff;
+  --color-input-border: #0000001a;
+}
