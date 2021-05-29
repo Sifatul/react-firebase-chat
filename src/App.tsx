@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
-import Client from './client/index';
-import Admin from './admin/index';
+import Client from './Client/index';
+import Admin from './Admin/index';
 
 function App() {
   return (

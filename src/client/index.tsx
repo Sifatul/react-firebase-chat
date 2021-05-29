@@ -1,5 +1,5 @@
 import React from 'react'
-import ReactFirebaseChatMain from "../component/index"
+import ReactFirebaseChatMain from "../Component/index"
 import {firebaseDatabase} from "../FirebaseSettings"
 
 export default function index() {
