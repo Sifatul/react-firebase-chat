@@ -2,14 +2,15 @@ import firebase from 'firebase'
 
 
   if (!firebase.apps.length) {
+      console.log(process.env)
     firebase.initializeApp({
-      "apiKey": "AIzaSyBuR7N2YTOihHUklB-cXlsveNJ_DtUcEbs",
-      "authDomain": "react-firebase-chat-c33ed.firebaseapp.com",
-      "projectId": "react-firebase-chat-c33ed",
-      "storageBucket": "react-firebase-chat-c33ed.appspot.com",
-      "messagingSenderId": "651843814794",
-      "appId": "1:651843814794:web:f97a19e9ff0da27ce8b473",
-      "measurementId": "G-FRSQTV24F0"
+      "apiKey": process.env.REACT_APP_apiKey,
+      "authDomain": process.env.REACT_APP_authDomain,
+      "projectId": process.env.REACT_APP_projectId,
+      "storageBucket": process.env.REACT_APP_storageBucket,
+      "messagingSenderId": process.env.REACT_APP_messagingSenderId,
+      "appId": process.env.REACT_APP_appId,
+      "measurementId": process.env.REACT_APP_measurementId,
   });
     // firebase.analytics();
     // firebase.auth().signInAnonymously()
