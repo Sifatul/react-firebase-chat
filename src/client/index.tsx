@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import Styles from './index.module.css';
+import Styles from './client.style.module.css';
 import {FiMessageSquare,FiMinus} from "react-icons/fi";
 import InputPopUp from '../Common/InputPopUP';
 
