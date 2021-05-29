@@ -3,7 +3,7 @@ import Styles from './client.style.module.css';
 import {FiMessageSquare,FiMinus} from "react-icons/fi";
 import InputPopUp from '../Common/InputPopUP';
 
-export default function Index() {
+export default function Index(props:any) {
     const [isShowPopUP,setIsShowPopUp] = useState(false);
     return (
         <>
@@ -11,7 +11,7 @@ export default function Index() {
                 {isShowPopUP && <FiMinus/>}
                 {!isShowPopUP && <FiMessageSquare/>}
             </div>
-            {isShowPopUP && <InputPopUp/>}
+            {isShowPopUP && <InputPopUp {...props}/>}
         </>
     )
 }
