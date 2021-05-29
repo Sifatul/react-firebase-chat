@@ -1,4 +1,3 @@
-import ReactFirebaseChatMain from "../component/index"
 import React,{useState} from 'react';
 import Styles from './Index.module.css';
 import {FiMessageSquare,FiMinus} from "react-icons/fi";
