@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import Styles from './InputPopUp.module.css';
 import {firebaseDatabase} from "../FirebaseSettings"
-import ReactFirebaseChatMain from "../component/index"
+import ReactFirebaseChatMain from "../Component/index"
 
 export default function InputPopUP() {
     const [name,setName] = useState("Bob Doe");
