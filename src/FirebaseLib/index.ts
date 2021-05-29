@@ -1,16 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-
-interface messageBody {
-    message: string,
-    name: string,
-    userType: string,
-    readStatus: boolean,
-}
+import {messageBody} from "./message.interface"
 
 export class ReactFirebaseChatMain {
     private readonly FirebaseDatabase 
     private clientUid
     constructor(firebaseDatabase: any) {
+        debugger
         if(this.FirebaseDatabase) return
         this.FirebaseDatabase = firebaseDatabase
         this.clientUid = uuidv4()
@@ -21,6 +16,7 @@ export class ReactFirebaseChatMain {
     
 
     addClientMessage(newMsg: messageBody, callback: Function) {
+        debugger
         this.FirebaseDatabase.ref(`react-Firebase-chat/client/${this.clientUid}`).push({ ...newMsg, createdAt: new Date() });
         callback()
     }
