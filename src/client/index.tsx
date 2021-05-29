@@ -1,25 +1,18 @@
-import React from 'react'
 import ReactFirebaseChatMain from "../component/index"
-import {firebaseDatabase} from "../FirebaseSettings"
+import React,{useState} from 'react';
+import Styles from './Index.module.css';
+import {FiMessageSquare,FiMinus} from "react-icons/fi";
+import InputPopUp from '../Common/InputPopUP';
 
-export default function index() {
-    const reactFirebaseChatMain:any = new ReactFirebaseChatMain(firebaseDatabase)
-    reactFirebaseChatMain.addClientMessage({
-        message: "message",
-        name: "name",
-        userType: "client",
-        readStatus: "false",
-    },()=>{})
-    reactFirebaseChatMain.clientsMessageListener((data:[])=>{
-        console.log("clients:", data)
-    })
-    const clientId = '08e47862-7edf-4613-abf0-6a506bfff54f'
-    reactFirebaseChatMain.clientMessageListenerClientById(clientId, (data:[])=>{
-        console.log("client message :", data)
-    })
+export default function Index() {
+    const [isShowPopUP,setIsShowPopUp] = useState(false);
     return (
-        <div>
-            Client
-        </div>
+        <>
+            <div className={Styles.clientPopUPWrapper} onClick={e => setIsShowPopUp(!isShowPopUP)}>
+                {isShowPopUP && <FiMinus/>}
+                {!isShowPopUP && <FiMessageSquare/>}
+            </div>
+            {isShowPopUP && <InputPopUp/>}
+        </>
     )
 }
