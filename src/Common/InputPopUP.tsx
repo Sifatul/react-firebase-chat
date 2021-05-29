@@ -1,17 +1,13 @@
 import React,{useState, useEffect} from 'react';
 import Styles from './InputPopUp.module.css';
-import {firebaseDatabase} from "../FirebaseSettings"
-import ReactFirebaseChatMain from "../component/index"
+import ReactFirebaseChatMain from "../FirebaseLib/index"
 
-export default function InputPopUP() {
+export default function InputPopUP(props: any) {
     const [name,setName] = useState("Bob Doe");
     const [message,setMessage] = useState("Hello There!")
 
-
- 
-
     function sendMessage(){
-        const reactFirebaseChat:any = new ReactFirebaseChatMain(firebaseDatabase)
+        const reactFirebaseChat:any = new ReactFirebaseChatMain(props.firebaseDatabase)
         reactFirebaseChat.addClientMessage({
             message: "message",
             name: "name",

@@ -1,13 +1,13 @@
 import React from 'react';
-import './App.css';
-import Client from './Client/Index';
-import Admin from './Admin/Index';
+import './App.css'; 
+import {firebaseDatabase} from "./FirebaseSettings"
+import {ClientView, AdminView} from "./FirebaseModule/index"
 
 function App() {
   return (
     <>
-      <Client/>
-      <Admin/>
+      <ClientView firebaseDatabase={firebaseDatabase}/>
+      <AdminView firebaseDatabase={firebaseDatabase}/>
     </>
   );
 }
