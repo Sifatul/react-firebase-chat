@@ -1,9 +1,14 @@
 import React from 'react';
 import './App.css';
+import Client from './client/index';
+import Admin from './admin/index';
 
 function App() {
   return (
-   <div>Hello</div>
+    <>
+      <Client/>
+      <Admin/>
+    </>
   );
 }
 
