@@ -5,14 +5,14 @@ import ReactFirebaseChatMain from "../FirebaseLib/index"
 export default function InputPopUP(props: any) {
     const [name,setName] = useState("Bob Doe");
     const [message,setMessage] = useState("Hello There!")
+    const reactFirebaseChat:ReactFirebaseChatMain = new ReactFirebaseChatMain(props.firebaseDatabase)
 
     function sendMessage(){
-        const reactFirebaseChat:any = new ReactFirebaseChatMain(props.firebaseDatabase)
         reactFirebaseChat.addClientMessage({
             message: "message",
             name: "name",
             userType: "client",
-            readStatus: "false",
+            readStatus: false,
         },()=>{})
     }
 
