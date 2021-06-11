@@ -1,5 +1,5 @@
-import ClientView from "../Client/index"
-import AdminView from "../Admin/index"
-import ReactFirebaseChatMain from "../FirebaseLib/index"
+import ClientView from "./client/index"
+import AdminView from "./admin/index"
+import ReactFirebaseChatMain from "./FirebaseLib/index"
 
 export {ClientView, AdminView, ReactFirebaseChatMain}

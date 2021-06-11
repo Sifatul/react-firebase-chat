@@ -1,6 +1,6 @@
-import React,{useState, useEffect} from 'react'; 
+import {useEffect} from 'react'; 
 import ReactFirebaseChatMain from "../FirebaseLib/index"
-import {messageBody} from "../FirebaseLib/message.interface"
+import {messageBody} from "../FirebaseLib/messageInterface"
 
 export default function Index(props:any) {
     useEffect(()=>{

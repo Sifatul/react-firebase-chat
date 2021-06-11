@@ -1,11 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
-import {messageBody} from "./message.interface"
+import {messageBody} from "./messageInterface"
 
 export class ReactFirebaseChatMain {
     private readonly FirebaseDatabase 
     private clientUid
     constructor(firebaseDatabase: any) {
-        debugger
         if(this.FirebaseDatabase) return
         this.FirebaseDatabase = firebaseDatabase
         this.clientUid = uuidv4()
@@ -23,9 +22,10 @@ export class ReactFirebaseChatMain {
     
     addAdminMessage(newMsg: messageBody, callback: Function) {
         this.FirebaseDatabase.ref(`react-Firebase-chat/admin/${this.clientUid}`).push({ ...newMsg, createdAt: new Date() });
+        callback()
     }
     clientMessageListenerClientById(clientId: string, callback: Function) {
-        this.FirebaseDatabase.ref(`react-Firebase-chat/client/${this.clientUid}`).on('value', (snapshot:any) => {
+        this.FirebaseDatabase.ref(`react-Firebase-chat/client/${clientId}`).on('value', (snapshot:any) => {
             console.log(snapshot.val());
             callback(snapshot.val())
           }, (errorObject:any) => {

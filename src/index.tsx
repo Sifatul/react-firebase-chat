@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import ClientView from './FirebaseModule/client';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+   <>
+   <ClientView/>
+   </>
   </React.StrictMode>,
   document.getElementById('root')
 );
