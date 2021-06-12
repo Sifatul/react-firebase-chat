@@ -1,6 +1,6 @@
 import * as React from "react"; 
 // import Styles from './InputPopUp.module.css';
-import { addClientMessage } from "../FirebaseLib/index"
+import { addMessage } from "../FirebaseLib/index"
 
 const Styles: {
     "inputPopUpWrpper": React.CSSProperties,
@@ -63,7 +63,7 @@ export default function InputPopUP(props: any) {
 
 
     function sendMessage() {
-        addClientMessage({
+        addMessage({
             messageBody:
             {
                 message: "message",
@@ -71,9 +71,9 @@ export default function InputPopUP(props: any) {
                 userType: "client",
                 readStatus: false,
             },
-            FirebaseDatabase: props.firebaseDatabase,
+            FirebaseDatabase: props.FirebaseDatabase,
             callback: () => { },
-            clientUid: 'userId'
+            Uid: props.Uid
         }
         )
     }

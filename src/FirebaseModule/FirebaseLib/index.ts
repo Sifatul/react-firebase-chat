@@ -1,43 +1,27 @@
 import { NewMessageParam } from "./messageInterface"
 
+const addMessage = (newData: NewMessageParam) => {
+    const { messageBody, FirebaseDatabase, callback = () => { }, Uid, errorCallback = () => { } } = newData
+    try {
+        const newMsg = { ...messageBody, createdAt: new Date() }
+        FirebaseDatabase.ref(`react-Firebase-chat/${Uid}`).push(newMsg);
+        callback(newMsg)
+    } catch (e) {
+        errorCallback(e)
+    }
 
-const addClientMessage = (newData: NewMessageParam) => {
-    const { messageBody, FirebaseDatabase, callback, clientUid } = newData
-    FirebaseDatabase.ref(`react-Firebase-chat/client/${clientUid}`).push({ ...messageBody, createdAt: new Date() });
-    callback()
 }
 
-const addAdminMessage = (newData: NewMessageParam) => {
-    const { messageBody, FirebaseDatabase, callback, clientUid } = newData
-    FirebaseDatabase.ref(`react-Firebase-chat/admin/${clientUid}`).push({ ...messageBody, createdAt: new Date() });
-    callback()
-}
-const clientMessageListenerClientById = (newData: {
-    callback: Function,
-    FirebaseDatabase: any,
-    clientUid: string
-}) => {
-    const { FirebaseDatabase, callback, clientUid } = newData
+const messageListenerById = (newData: { callback: Function, FirebaseDatabase: any, Uid: string, errorCallback?: Function }) => {
+    const { FirebaseDatabase, callback = () => { }, Uid, errorCallback = () => { } } = newData
 
-    FirebaseDatabase.ref(`react-Firebase-chat/client/${clientUid}`).on('value', (snapshot: any) => {
+    FirebaseDatabase.ref(`react-Firebase-chat/${Uid}`).on('value', (snapshot: any) => {
         console.log(snapshot.val());
         callback(snapshot.val())
     }, (errorObject: any) => {
-        console.log('The read failed: ' + errorObject.name);
+        errorCallback(errorObject)
     });
 
 }
-const clientsMessageListener = (newData: {
-    callback: Function,
-    FirebaseDatabase: any,
-}) => {
-    const { FirebaseDatabase, callback } = newData
 
-    FirebaseDatabase.ref(`react-Firebase-chat/client`).on('value', (snapshot: any) => {
-        console.log(snapshot.val());
-        callback(snapshot.val())
-    }, (errorObject: any) => {
-        console.log('The read failed: ' + errorObject.name);
-    });
-}
-export { addClientMessage, addAdminMessage, clientMessageListenerClientById, clientsMessageListener }
+export { messageListenerById, addMessage }

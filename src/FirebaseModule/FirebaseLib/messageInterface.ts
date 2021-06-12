@@ -7,7 +7,8 @@ export interface messageBody {
 
 export interface NewMessageParam {
     messageBody: messageBody, 
-    callback: Function,
+    callback?: Function,
+    errorCallback?: Function,
     FirebaseDatabase:any,
-    clientUid:string
+    Uid:string
 }
