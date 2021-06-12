@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import * as React from "react";
+
 // import Styles from './client.style.module.css';
 import {FiMessageSquare,FiMinus} from "react-icons/fi";
 import InputPopUp from '../Common/InputPopUP';
@@ -28,7 +29,7 @@ const Styles:{
     }
 }
 export default function Index(props:any) {
-    const [isShowPopUP,setIsShowPopUp] = useState(false);
+    const [isShowPopUP,setIsShowPopUp] = React.useState(false);
     return (
         <>
             <div style={Styles.clientPopUPWrapper} onClick={() => setIsShowPopUp(!isShowPopUP)}>

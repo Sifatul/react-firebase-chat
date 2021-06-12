@@ -1,15 +1,15 @@
-import React from 'react';
-import {useState} from 'react';
+import * as React from "react"; 
 // import Styles from './InputPopUp.module.css';
-import ReactFirebaseChatMain from "../FirebaseLib/index"
-const Styles:{
+import { addClientMessage } from "../FirebaseLib/index"
+
+const Styles: {
     "inputPopUpWrpper": React.CSSProperties,
     "fWidth": React.CSSProperties,
     "inputPopUpWrpperInputName": React.CSSProperties,
     "inputPopUpWrpperInputMessage": React.CSSProperties,
     "inputPopUpWrppersendMessage": React.CSSProperties,
 
-}= {
+} = {
     "inputPopUpWrpper": {
         width: "300px",
         height: "auto",
@@ -22,20 +22,20 @@ const Styles:{
         padding: "10px",
         borderRadius: "4px"
     },
-    
+
     fWidth: {
         width: "100%"
     },
-    
-    inputPopUpWrpperInputName:{
+
+    inputPopUpWrpperInputName: {
         padding: "10px",
         height: "20px",
         marginBottom: "10px",
         border: "1px solid var(--color-input-border)",
         borderRadius: "4px"
     },
-    
-    inputPopUpWrpperInputMessage:{
+
+    inputPopUpWrpperInputMessage: {
         height: "40px",
         padding: "10px",
         marginBottom: "10px",
@@ -43,8 +43,8 @@ const Styles:{
         border: "1px solid var(--color-input-border)",
         borderRadius: "4px"
     },
-    
-    inputPopUpWrppersendMessage:{
+
+    inputPopUpWrppersendMessage: {
         backgroundColor: "var(--color-background)",
         border: "none",
         outline: "none",
@@ -55,39 +55,46 @@ const Styles:{
     }
 
 }
- 
+
 
 export default function InputPopUP(props: any) {
-    const [name,setName] = useState("Bob Doe");
-    const [message,setMessage] = useState("Hello There!")
-    const reactFirebaseChat:ReactFirebaseChatMain = new ReactFirebaseChatMain(props.firebaseDatabase)
+    const [name, setName] = React.useState("Bob Doe");
+    const [message, setMessage] = React.useState("Hello There!")
 
-    function sendMessage(){
-        reactFirebaseChat.addClientMessage({
-            message: "message",
-            name: "name",
-            userType: "client",
-            readStatus: false,
-        },()=>{})
+
+    function sendMessage() {
+        addClientMessage({
+            messageBody:
+            {
+                message: "message",
+                name: "name",
+                userType: "client",
+                readStatus: false,
+            },
+            FirebaseDatabase: props.firebaseDatabase,
+            callback: () => { },
+            clientUid: 'userId'
+        }
+        )
     }
 
     return (
         <div style={Styles.inputPopUpWrpper}>
-            <input 
-                style={{...Styles.inputPopUpWrpperInputName, ...Styles.fWidth}}
+            <input
+                style={{ ...Styles.inputPopUpWrpperInputName, ...Styles.fWidth }}
                 placeholder={name}
                 value={name}
                 onChange={e => setName(e.target.value)}
             />
-            <textarea 
-                style={{...Styles.inputPopUpWrpperInputMessage, ...Styles.fWidth}}
+            <textarea
+                style={{ ...Styles.inputPopUpWrpperInputMessage, ...Styles.fWidth }}
                 placeholder={message}
                 value={message}
                 onChange={e => setMessage(e.target.value)}
             >
-                
+
             </textarea>
-            <button style={{...Styles.inputPopUpWrppersendMessage, ...Styles.fWidth}} onClick={()=>sendMessage()}>Send</button>
+            <button style={{ ...Styles.inputPopUpWrppersendMessage, ...Styles.fWidth }} onClick={() => sendMessage()}>Send</button>
         </div>
     )
 }

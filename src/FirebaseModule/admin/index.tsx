@@ -1,15 +1,19 @@
-import {useEffect} from 'react'; 
-import ReactFirebaseChatMain from "../FirebaseLib/index"
+import * as React from "react";
+import {clientsMessageListener} from "../FirebaseLib/index"
 import {messageBody} from "../FirebaseLib/messageInterface"
 
 export default function Index(props:any) {
-    useEffect(()=>{
-        const reactFirebaseChat:any = new ReactFirebaseChatMain(props.firebaseDatabase)
-        reactFirebaseChat.clientsMessageListener((clientMsgs:messageBody)=>{
-            console.log(clientMsgs)
-        })
+    React.useEffect(()=>{
+       
+        clientsMessageListener( {
+            FirebaseDatabase: props.firebaseDatabase,
+            callback:(clientMsgs:messageBody)=>{
+                console.log(clientMsgs)
+            }
+        })            
         
     },[])
+    
     return (
         <div>
             Admin

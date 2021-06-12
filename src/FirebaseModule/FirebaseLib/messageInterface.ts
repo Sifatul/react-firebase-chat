@@ -4,3 +4,10 @@ export interface messageBody {
     userType: string,
     readStatus: boolean,
 }
+
+export interface NewMessageParam {
+    messageBody: messageBody, 
+    callback: Function,
+    FirebaseDatabase:any,
+    clientUid:string
+}
