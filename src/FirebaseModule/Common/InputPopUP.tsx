@@ -71,7 +71,7 @@ export default function InputPopUP(props: any) {
                 userType: "client",
                 readStatus: false,
             },
-            FirebaseDatabase: props.FirebaseDatabase,
+            firebaseDatabase: props.firebaseDatabase,
             callback: () => { },
             Uid: props.Uid
         }
