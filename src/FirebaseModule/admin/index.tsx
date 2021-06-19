@@ -6,7 +6,7 @@ export default function Index(props:any) {
     React.useEffect(()=>{
        
         messageListenerById( {
-            FirebaseDatabase: props.firebaseDatabase,
+            firebaseDatabase: props.firebaseDatabase,
             callback:(clientMsgs:messageBody)=>{
                 console.log(clientMsgs)
             },
