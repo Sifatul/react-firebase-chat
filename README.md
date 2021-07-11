@@ -33,6 +33,18 @@ npm install react-firebase-chat --save
 - errorCallback : callback function to receive data afer the api request fails
 
 ## 1. Send Message API
+
+Pass the required params: 
+- ``messageBody`` (required) 
+  - ``message`` (required) 
+  - ``name`` (required) 
+  - ``readStatus`` (required) 
+  - ``senderUid`` (required) 
+- ``firebaseDatabase`` (required)
+- ``uid`` (required)
+- ``callback`` (optional)
+- ``errorCallback`` (optional)
+
 ```js
 import { useCallback, useState } from 'react';
 import { addMessage } from "react-firebase-chat-api";
@@ -77,7 +89,11 @@ export default App;
 ```
 
 ## 2. Messages listener by user id
-
+Pass the required params: 
+- ``firebaseDatabase`` (required)
+- ``uid`` (required)
+- ``callback`` (required)
+- ``errorCallback`` (optional)
 ```js
 import { useEffect, useState } from 'react';
 import { messageListenerById } from "react-firebase-chat-api";
