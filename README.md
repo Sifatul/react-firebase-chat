@@ -27,52 +27,66 @@ npm install react-firebase-chat --save
 ***
 ## Props
 
-- FirebaseDatabase: reference to the firebase realtime database 
-- Uid: Unique identifier of the user
+- firebaseDatabase: reference to the firebase realtime database 
+- uid: Unique identifier of the user
 - callback : callback function to receive data afer the api is excuted
 - errorCallback : callback function to receive data afer the api request fails
 
-
-## 1. Send Message UI component
-
-
-### Snippets
-
- ```js
-import {ClientView} from "react-firebase-chat"
-
-import {firebaseDatabase} from "FIREBASE_SETUP" // your setup
- 
-
-export default function MessageSendUi() { 
-    return <ClientView 
-        firebaseDatabase = {firebaseDatabase}
-        Uid ="UNIQUE_UID"
-        />
-}
-```
-## 2. Send Message API
+## 1. Send Message API
 ***
-import ```addMessage``` method
  ```js
 import {addMessage} from "react-firebase-chat"
 ```
 
 Pass the required params: 
 - ``messageBody`` (required)
-- ``FirebaseDatabase`` (required)
-- ``Uid`` (required)
+- ``firebaseDatabase`` (required)
+- ``uid`` (required)
 - ``callback`` (optional)
 - ``errorCallback`` (optional)
 ```js
-const messageBody = {
-    message: "DESIRED_MESSAGE"
+const _messageBody = {
+      message: "MESSAGE_TEXT",
+      name: "SENDER_NAME",
+      readStatus: false,
+      senderUid: "SENDER_UNIQUE_ID"
 }
 addMessage({
-    messageBody: messageBody,
-    FirebaseDatabase: FirebaseDatabase,
-    callback: "CALLBACK_FUNCTION",
-    Uid: "UNIQUE_SENDER_ID"
+    messageBody: _messageBody,
+    firebaseDatabase,
+    uid: "SENDER_UNIQUE_ID",
+    errorCallback: (e) => {
+      console.error("Error occurred. ", e)
+    },
+    callback: (e) => {
+      console.log("message added successfully. ", e)
+    }
+})
+```
+
+## 2. Messages listener by user id
+***
+ ```js
+import {messageListenerById} from "react-firebase-chat"
+
+```
+
+Pass the required params: 
+- ``firebaseDatabase`` (required)
+- ``uid`` (required)
+- ``callback`` (optional)
+- ``errorCallback`` (optional)
+```js
+ 
+messageListenerById({
+    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REF",
+    uid: "UNIQUE_ID_OF_THE_SENDER",
+    callback: (data) => {
+        console.log("all messages of the user: ", data)
+    },
+    errorCallback: (e) => {
+        console.log("message added successfully. ", e)
+    }
 })
 ```
 

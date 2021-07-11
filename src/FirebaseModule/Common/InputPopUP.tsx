@@ -79,7 +79,7 @@ export default function InputPopUP(props: any) {
     // const [name, setName] = React.useState("Bob Doe");
     const [message, setMessage] = React.useState("")
     const [messages, setMessages ] = React.useState<messageBody[]>([])
-    const {Uid, firebaseDatabase} = props
+    const {uid, firebaseDatabase} = props
 
     const messageListenCallbackFunc= (data :any)=>{
         console.log("data received: ",data)
@@ -93,7 +93,7 @@ export default function InputPopUP(props: any) {
         console.log("error occured: ",error)
       }
       React.useEffect(()=>{
-        messageListenerById({firebaseDatabase: props.firebaseDatabase , callback: messageListenCallbackFunc, Uid: props.Uid, errorCallback : errorFunction })
+        messageListenerById({firebaseDatabase: props.firebaseDatabase , callback: messageListenCallbackFunc, uid: props.uid, errorCallback : errorFunction })
       },[])
 
 
@@ -103,13 +103,12 @@ export default function InputPopUP(props: any) {
             {
                 message: message,
                 name: "name",
-                userType: "client",
                 readStatus: false,
-                senderUid: Uid
+                senderUid: uid
             },
             firebaseDatabase: firebaseDatabase,
             callback: () => { },
-            Uid: Uid
+            uid: uid
         })
         setMessage('')
     }
@@ -124,7 +123,7 @@ export default function InputPopUP(props: any) {
             /> */}
             <div style={Styles.messageContainer}>
             {messages.map(item=>{
-                if(item.senderUid === Uid){
+                if(item.senderUid === uid){
                     return <p style={{...Styles.myMessage, ...Styles.messageItem}}>{item.message}</p>
                 }
                 return <p style={Styles.messageItem}>{item.message}</p>

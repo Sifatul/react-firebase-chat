@@ -10,7 +10,7 @@ export default function Index(props:any) {
             callback:(clientMsgs:messageBody)=>{
                 console.log(clientMsgs)
             },
-            Uid: props.Uid
+            uid: props.uid
         })            
         
     },[])

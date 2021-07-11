@@ -1,7 +1,6 @@
 export interface messageBody {
     message: string,
     name: string,
-    userType: string,
     readStatus: boolean,
     senderUid:string
 }
@@ -11,5 +10,5 @@ export interface NewMessageParam {
     callback?: Function,
     errorCallback?: Function,
     firebaseDatabase:any,
-    Uid:string
+    uid:string
 }

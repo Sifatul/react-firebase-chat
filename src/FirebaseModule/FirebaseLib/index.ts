@@ -1,24 +1,22 @@
 import { NewMessageParam } from "./messageInterface"
 
 const addMessage = (newData: NewMessageParam) => {
-    const { messageBody, firebaseDatabase, callback = () => { }, Uid, errorCallback = () => { } } = newData
-    try {
-        const newMsg = { ...messageBody, createdAt: new Date() }
-        firebaseDatabase.ref(`react-Firebase-chat/${Uid}`).push(newMsg);
-        callback(newMsg)
-    } catch (e) {
-        errorCallback(e)
-    }
+    const { messageBody, firebaseDatabase, callback = () => { }, uid, errorCallback = () => { } } = newData
+    const newMsg = { ...messageBody, createdAt: new Date() }
+    firebaseDatabase.ref(`react-Firebase-chat/${uid}`).push(newMsg).catch((error: any) => {
+        errorCallback(error)
+    });
+    callback(newMsg)
 
 }
 
-const messageListenerById = (newData: { callback: Function, firebaseDatabase: any, Uid: string, errorCallback?: Function }) => {
-    const { firebaseDatabase , callback = () => { }, Uid, errorCallback = () => { } } = newData
+const messageListenerById = (newData: { callback: Function, firebaseDatabase: any, uid: string, errorCallback?: Function }) => {
+    const { firebaseDatabase, callback = () => { }, uid, errorCallback = () => { } } = newData
 
-    firebaseDatabase.ref(`react-Firebase-chat/${Uid}`).on('value', (snapshot: any) => {
+    firebaseDatabase.ref(`react-Firebase-chat/${uid}`).on('value', (snapshot: any) => {
         console.log(snapshot.val());
         callback(snapshot.val())
-    }, (errorObject: any) => {
+    },(errorObject: any) => {
         errorCallback(errorObject)
     });
 

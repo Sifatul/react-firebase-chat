@@ -1,6 +1,6 @@
 {
-  "name": "react-firebase-chat",
-  "version": "1.0.0",
+  "name": "react-firebase-chat-api",
+  "version": "0.0.3",
   "description": "",
   "main": "build/index.js",
   "module": "build/index.es.js",
@@ -19,6 +19,13 @@
     "type": "git",
     "url": "git+https://github.com/Sifatul/react-firebase-chat.git"
   },
+  "keywords": [
+    "firebase",
+    "firebase realtime database",
+    "realtime message",
+    "realtime chat",
+    "typescript" 
+  ],
   "author": "",
   "license": "ISC",
   "bugs": {
