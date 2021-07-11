@@ -79,7 +79,7 @@ export default function InputPopUP(props: any) {
     // const [name, setName] = React.useState("Bob Doe");
     const [message, setMessage] = React.useState("")
     const [messages, setMessages ] = React.useState<messageBody[]>([])
-    const {Uid, firebaseDatabase} = props
+    const {uid, firebaseDatabase} = props
 
     const messageListenCallbackFunc= (data :any)=>{
         console.log("data received: ",data)
@@ -103,13 +103,12 @@ export default function InputPopUP(props: any) {
             {
                 message: message,
                 name: "name",
-                userType: "client",
                 readStatus: false,
-                senderUid: Uid
+                senderUid: uid
             },
             firebaseDatabase: firebaseDatabase,
             callback: () => { },
-            uid: Uid
+            uid: uid
         })
         setMessage('')
     }
@@ -124,7 +123,7 @@ export default function InputPopUP(props: any) {
             /> */}
             <div style={Styles.messageContainer}>
             {messages.map(item=>{
-                if(item.senderUid === Uid){
+                if(item.senderUid === uid){
                     return <p style={{...Styles.myMessage, ...Styles.messageItem}}>{item.message}</p>
                 }
                 return <p style={Styles.messageItem}>{item.message}</p>

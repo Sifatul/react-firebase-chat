@@ -3,7 +3,7 @@ import { NewMessageParam } from "./messageInterface"
 const addMessage = (newData: NewMessageParam) => {
     const { messageBody, firebaseDatabase, callback = () => { }, uid, errorCallback = () => { } } = newData
     const newMsg = { ...messageBody, createdAt: new Date() }
-    firebaseDatabase.ref(`react-Firebase-chat/${uid}`).update(newMsg).catch((error: any) => {
+    firebaseDatabase.ref(`react-Firebase-chat/${uid}`).push(newMsg).catch((error: any) => {
         errorCallback(error)
     });
     callback(newMsg)
