@@ -3,6 +3,7 @@ export interface messageBody {
     name: string,
     userType: string,
     readStatus: boolean,
+    senderUid:string
 }
 
 export interface NewMessageParam {

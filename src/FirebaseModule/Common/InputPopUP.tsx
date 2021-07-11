@@ -1,6 +1,7 @@
 import * as React from "react"; 
 // import Styles from './InputPopUp.module.css';
-import { addMessage } from "../FirebaseLib/index"
+import { addMessage, messageListenerById } from "../FirebaseLib/index"
+import { messageBody } from "../FirebaseLib/messageInterface"
 
 const Styles: {
     "inputPopUpWrpper": React.CSSProperties,
@@ -8,6 +9,9 @@ const Styles: {
     "inputPopUpWrpperInputName": React.CSSProperties,
     "inputPopUpWrpperInputMessage": React.CSSProperties,
     "inputPopUpWrppersendMessage": React.CSSProperties,
+    "myMessage": React.CSSProperties,
+    "messageItem": React.CSSProperties,
+    "messageContainer": React.CSSProperties,
 
 } = {
     "inputPopUpWrpper": {
@@ -52,40 +56,82 @@ const Styles: {
         padding: "10px 0",
         cursor: "pointer",
         borderRadius: "4px"
+    },
+    myMessage:{
+        textAlign:'right'
+    },
+    messageItem:{
+        display:'block',
+        padding:'3px 5px'
+    },
+    messageContainer:{
+        padding:'5px 0px',
+        maxHeight:'200px',
+        overflow:'auto',
+        width:'100%'
     }
 
 }
 
+ 
 
 export default function InputPopUP(props: any) {
-    const [name, setName] = React.useState("Bob Doe");
-    const [message, setMessage] = React.useState("Hello There!")
+    // const [name, setName] = React.useState("Bob Doe");
+    const [message, setMessage] = React.useState("")
+    const [messages, setMessages ] = React.useState<messageBody[]>([])
+    const {Uid, firebaseDatabase} = props
+
+    const messageListenCallbackFunc= (data :any)=>{
+        console.log("data received: ",data)
+        const output = []
+        for(const i in data){
+            output.push(data[i])
+        }
+        setMessages(output)
+      }
+      const errorFunction= (error :any)=>{
+        console.log("error occured: ",error)
+      }
+      React.useEffect(()=>{
+        messageListenerById({firebaseDatabase: props.firebaseDatabase , callback: messageListenCallbackFunc, Uid: props.Uid, errorCallback : errorFunction })
+      },[])
 
 
     function sendMessage() {
         addMessage({
             messageBody:
             {
-                message: "message",
+                message: message,
                 name: "name",
                 userType: "client",
                 readStatus: false,
+                senderUid: Uid
             },
-            FirebaseDatabase: props.FirebaseDatabase,
+            firebaseDatabase: firebaseDatabase,
             callback: () => { },
-            Uid: props.Uid
-        }
-        )
+            Uid: Uid
+        })
+        setMessage('')
     }
 
     return (
         <div style={Styles.inputPopUpWrpper}>
-            <input
+            {/* <input
                 style={{ ...Styles.inputPopUpWrpperInputName, ...Styles.fWidth }}
                 placeholder={name}
                 value={name}
                 onChange={e => setName(e.target.value)}
-            />
+            /> */}
+            <div style={Styles.messageContainer}>
+            {messages.map(item=>{
+                if(item.senderUid === Uid){
+                    return <p style={{...Styles.myMessage, ...Styles.messageItem}}>{item.message}</p>
+                }
+                return <p style={Styles.messageItem}>{item.message}</p>
+            })}
+            </div>
+            
+            
             <textarea
                 style={{ ...Styles.inputPopUpWrpperInputMessage, ...Styles.fWidth }}
                 placeholder={message}
