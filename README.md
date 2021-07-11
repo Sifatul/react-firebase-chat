@@ -36,7 +36,7 @@ npm install react-firebase-chat --save
 ```js
 import { useCallback, useState } from 'react';
 import { addMessage } from "react-firebase-chat-api";
-import { firebaseDatabase } from "./FirebaseSettings";
+import { firebaseDatabase } from "./FirebaseSettings"; // your firebase config
 function App() {
   const [message, setMessage] = useState('')
   const userId = "USER_UNIQUE_ID"
@@ -81,7 +81,7 @@ export default App;
 ```js
 import { useEffect, useState } from 'react';
 import { messageListenerById } from "react-firebase-chat-api";
-import { firebaseDatabase } from "./FirebaseSettings";
+import { firebaseDatabase } from "./FirebaseSettings"; // your firebase config
 function App() {
 
   const [userMessages, setUserMessage] = useState([])
@@ -112,7 +112,7 @@ function App() {
       <header className="App-header">
         {userMessages.map(item => <>
             <p>message : {item.message}</p>
-            <p>createdAt: {item.createAt}</p>
+            <p>createdAt: {item.createdAt}</p>
             <br/>
           </>
         )}
