@@ -16,8 +16,8 @@ const messageListenerById = (newData: { callback: Function, firebaseDatabase: an
     firebaseDatabase.ref(`react-Firebase-chat/${uid}`).on('value', (snapshot: any) => {
         console.log(snapshot.val());
         callback(snapshot.val())
-    }).catch((error: any) => {
-        errorCallback(error)
+    },(errorObject: any) => {
+        errorCallback(errorObject)
     });
 
 }
