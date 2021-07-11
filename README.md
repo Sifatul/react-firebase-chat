@@ -53,7 +53,7 @@ const _messageBody = {
 }
 addMessage({
     messageBody: _messageBody,
-    firebaseDatabase,
+    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REF",
     uid: "SENDER_UNIQUE_ID",
     errorCallback: (e) => {
       console.error("Error occurred. ", e)
