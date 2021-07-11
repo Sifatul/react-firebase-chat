@@ -11,5 +11,5 @@ export interface NewMessageParam {
     callback?: Function,
     errorCallback?: Function,
     firebaseDatabase:any,
-    Uid:string
+    uid:string
 }
