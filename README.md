@@ -64,7 +64,7 @@ addMessage({
 })
 ```
 
-## 2.Messages listner by user id
+## 2. Messages listner by user id
 ***
  ```js
 import {messageListenerById} from "react-firebase-chat"
