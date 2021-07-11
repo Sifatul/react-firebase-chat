@@ -93,7 +93,7 @@ export default function InputPopUP(props: any) {
         console.log("error occured: ",error)
       }
       React.useEffect(()=>{
-        messageListenerById({firebaseDatabase: props.firebaseDatabase , callback: messageListenCallbackFunc, Uid: props.Uid, errorCallback : errorFunction })
+        messageListenerById({firebaseDatabase: props.firebaseDatabase , callback: messageListenCallbackFunc, uid: props.uid, errorCallback : errorFunction })
       },[])
 
 
@@ -109,7 +109,7 @@ export default function InputPopUP(props: any) {
             },
             firebaseDatabase: firebaseDatabase,
             callback: () => { },
-            Uid: Uid
+            uid: Uid
         })
         setMessage('')
     }
