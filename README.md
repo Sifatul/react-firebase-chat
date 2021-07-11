@@ -33,61 +33,97 @@ npm install react-firebase-chat --save
 - errorCallback : callback function to receive data afer the api request fails
 
 ## 1. Send Message API
-***
- ```js
-import {addMessage} from "react-firebase-chat"
-```
-
-Pass the required params: 
-- ``messageBody`` (required)
-- ``firebaseDatabase`` (required)
-- ``uid`` (required)
-- ``callback`` (optional)
-- ``errorCallback`` (optional)
 ```js
-const _messageBody = {
-      message: "MESSAGE_TEXT",
-      name: "SENDER_NAME",
-      readStatus: false,
-      senderUid: "SENDER_UNIQUE_ID"
+import { useCallback, useState } from 'react';
+import { addMessage } from "react-firebase-chat-api";
+import { firebaseDatabase } from "./FirebaseSettings";
+function App() {
+  const [message, setMessage] = useState('')
+  const userId = "USER_UNIQUE_ID"
+  const _messageBody = {
+    message: message,
+    name: "SENDER_NAME",
+    readStatus: false,
+    senderUid: userId
+  }
+  const sendMessage = useCallback(() => {
+    setMessage('')
+    return addMessage({
+      messageBody: _messageBody,
+      firebaseDatabase,
+      uid: userId,
+      errorCallback: (e) => {
+        console.error(e)
+      },
+      callback: (e) => {
+        console.log("message added successfully. ", e)
+      }
+    })
+  }, [firebaseDatabase, message])
+
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        <input onChange={e => setMessage(e.target.value)} value={message}></input>
+        <button onClick={e => sendMessage()}> sendMessage </button>
+      </header>
+    </div>
+  );
 }
-addMessage({
-    messageBody: _messageBody,
-    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REFERENCE",
-    uid: "SENDER_UNIQUE_ID",
-    errorCallback: (e) => {
-      console.error("Error occurred. ", e)
-    },
-    callback: (e) => {
-      console.log("message added successfully. ", e)
-    }
-})
+
+export default App;
+
 ```
 
 ## 2. Messages listener by user id
-***
- ```js
-import {messageListenerById} from "react-firebase-chat"
 
-```
-
-Pass the required params: 
-- ``firebaseDatabase`` (required)
-- ``uid`` (required)
-- ``callback`` (optional)
-- ``errorCallback`` (optional)
 ```js
- 
-messageListenerById({
-    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REFERENCE",
-    uid: "UNIQUE_ID_OF_THE_SENDER",
-    callback: (data) => {
+import { useEffect, useState } from 'react';
+import { messageListenerById } from "react-firebase-chat-api";
+import { firebaseDatabase } from "./FirebaseSettings";
+function App() {
+
+  const [userMessages, setUserMessage] = useState([])
+  const userId = "USER_UNIQUE_ID"
+
+  useEffect(() => {
+    if (!firebaseDatabase) return
+    messageListenerById({
+      firebaseDatabase,
+      uid: userId,
+      callback: (data) => {
         console.log("all messages of the user: ", data)
-    },
-    errorCallback: (e) => {
+        const newData = []
+        for (var key in data) {
+          newData.push(data[key])
+        }
+        setUserMessage(newData)
+      },
+      errorCallback: (e) => {
         console.log("message added successfully. ", e)
-    }
-})
+      }
+    })
+  }, [firebaseDatabase])
+
+
+  return (
+    <div className="App">
+      <header className="App-header">
+        {userMessages.map(item => <>
+            <p>message : {item.message}</p>
+            <p>createdAt: {item.createAt}</p>
+            <br/>
+          </>
+        )}
+
+      </header>
+    </div>
+  );
+}
+
+export default App;
+
 ```
 
 ## License
