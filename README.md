@@ -53,7 +53,7 @@ const _messageBody = {
 }
 addMessage({
     messageBody: _messageBody,
-    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REF",
+    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REFERENCE",
     uid: "SENDER_UNIQUE_ID",
     errorCallback: (e) => {
       console.error("Error occurred. ", e)
@@ -79,7 +79,7 @@ Pass the required params:
 ```js
  
 messageListenerById({
-    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REF",
+    firebaseDatabase: "YOUR_FIREBASE_REALTIME_DATABASE_REFERENCE",
     uid: "UNIQUE_ID_OF_THE_SENDER",
     callback: (data) => {
         console.log("all messages of the user: ", data)
